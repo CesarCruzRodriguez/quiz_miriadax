@@ -29,11 +29,12 @@ exports.show = function (req, res){
 
 exports.answer = function (req, res){
 	var resultado = 'Incorrecto';
+	//console.log('objeto ' + req.quiz.respuesta);
+	//console.log('parametro '+req.query.respuesta);
 	if(req.query.respuesta === req.quiz.respuesta) 
 		resultado = 'Correcto';
-	else 
-		res.render('quizes/answer', 
-			{ quiz: req.quiz, respuesta: resultado });
+	 
+	res.render('quizes/answer', { quiz: req.quiz, respuesta: resultado });
 };
 
 exports.search = function (req, res){
