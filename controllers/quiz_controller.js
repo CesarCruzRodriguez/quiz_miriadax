@@ -16,11 +16,11 @@ exports.load = function ( req, res, next, quizId){
 };
 
 exports.index = function (req, res){
-	models.Quiz.findAll().then(function(quizes){
+	models.Quiz.findAll().then(function (quizes){
 		res.render('quizes/index', { quizes: quizes});
 	}).catch(function(error){
-		mext(error);
-	})
+		next(error);
+	});
 };
 
 exports.show = function (req, res){
@@ -34,4 +34,13 @@ exports.answer = function (req, res){
 	else 
 		res.render('quizes/answer', 
 			{ quiz: req.quiz, respuesta: resultado });
+};
+
+exports.search = function (req, res){
+	models.Quiz.findAll({where: ["pregunta like ?", req.query.search]}).then(
+		function (quizes){
+			res.render('quizes/search', { quizes: quizes });
+		}).catch(function(error){
+		next(error);
+	});
 };
