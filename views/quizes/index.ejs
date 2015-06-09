@@ -1,5 +1,15 @@
-<table>
-	<% var i; for ( i=0; i<quizes.length; i++){ %>
+<% var contador_H = 0,
+	   contador_O = 0,
+	   contador_C = 0,
+	   contador_T = 0;
+%>
+<table>	
+	<tr>
+		<th>Humanidades:</th>
+	</tr>
+	<% var i; for ( i=0; i<quizes.length; i++){ 
+		if (quizes[i].tema === 'Humanidades'){ 
+			contador_H++; %>
 		<tr>
 			<td><a href="/quizes/<%= quizes[i].id %>"> <%= quizes[i].pregunta %></a></td>
 			<td><a href="/quizes/<%= quizes[i].id %>/edit"><button>Editar</button> </a></td>
@@ -8,11 +18,88 @@
 					<input type="submit" onClick="return confirm('Borrar: <%= quizes[i].pregunta %>');" value="Borrar">
 				</form>
 			</td>
+	<% } 
+	 }
+	 if (contador_H == 0){ %>
+			<td>no hay preguntas</td>	
+	<%	} %>
 		</tr>
-	<% } %>
-	<form method="GET" action="/quizes/search">
+	
+</table>
+
+<table>	
+	<tr>
+		<th>Ocio:</th>
+	</tr>
+	<% var i; for ( i=0; i<quizes.length; i++){ 
+		if (quizes[i].tema === 'Ocio'){ 
+			contador_O++; %>
+		<tr>
+			<td><a href="/quizes/<%= quizes[i].id %>"> <%= quizes[i].pregunta %></a></td>
+			<td><a href="/quizes/<%= quizes[i].id %>/edit"><button>Editar</button> </a></td>
+			<td>
+				<form method="post" action="/quizes/<%= quizes[i].id %>?_method=delete">
+					<input type="submit" onClick="return confirm('Borrar: <%= quizes[i].pregunta %>');" value="Borrar">
+				</form>
+			</td>
+	<% } 	
+	} 
+	if (contador_O == 0){ %>
+			<td>no hay preguntas</td>
+	<%	} %>
+		</tr>
+
+</table>
+
+<table>
+	<tr>
+		<th>Ciencia:</th>
+	</tr>
+	<% var i; for ( i=0; i<quizes.length; i++){ 
+		if (quizes[i].tema === 'Ciencia'){ 
+			contador_C++; %>
+		<tr>
+			<td><a href="/quizes/<%= quizes[i].id %>"> <%= quizes[i].pregunta %></a></td>
+			<td><a href="/quizes/<%= quizes[i].id %>/edit"><button>Editar</button> </a></td>
+			<td>
+				<form method="post" action="/quizes/<%= quizes[i].id %>?_method=delete">
+					<input type="submit" onClick="return confirm('Borrar: <%= quizes[i].pregunta %>');" value="Borrar">
+				</form>
+			</td>
+	<% } 	
+	} 
+	if (contador_C == 0){ %>
+			<td>no hay preguntas</td>
+	<%	} %>
+		</tr>
+</table>
+
+<table>
+	<tr>
+		<th>Tecnología:</th>
+	</tr>
+	<% var i; for ( i=0; i<quizes.length; i++){ 
+		if (quizes[i].tema === 'Tecnología'){ 
+			contador_T++; %>
+		<tr>
+			<td><a href="/quizes/<%= quizes[i].id %>"> <%= quizes[i].pregunta %></a></td>
+			<td><a href="/quizes/<%= quizes[i].id %>/edit"><button>Editar</button> </a></td>
+			<td>
+				<form method="post" action="/quizes/<%= quizes[i].id %>?_method=delete">
+					<input type="submit" onClick="return confirm('Borrar: <%= quizes[i].pregunta %>');" value="Borrar">
+				</form>
+			</td>
+	<% } 	
+	} 
+	if (contador_T == 0){ %>
+			<td>no hay preguntas</td>
+	<%	} %>
+		</tr>
+</table>
+
+<form method="GET" action="/quizes/search">
 		Buscar pregunta: <input type="text" name="search" placeholder="escriba palabras clave" /></br>
 		<input type="submit" value="Buscar" />
-	</form>
-</table>
+</form>
+
 <a href="/quizes/new"><button type="button">Crear pregunta</button></a>

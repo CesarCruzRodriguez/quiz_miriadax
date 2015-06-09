@@ -3,5 +3,12 @@ body                { background: #333;}
 #page-wraper:after  { content: 'Smartphone Layout';}
 
 h2 span, section h3 { display: none;}
-body                { font-size: xx-large;}
-footer, input       { font-size: large;}
+body                { font-size: x-large;}
+button, input       { font-size: large;}
+section             { float: left; width: 97.5%; }
+nav                 { width: 97.5%;  height: 55px;}
+nav span            { margin: 0px 10px 0px 0px; width: 100%; display: inline;} 
+
+label.rem           { display: none;}
+
+table {  text-align: center;}

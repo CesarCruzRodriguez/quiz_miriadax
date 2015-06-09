@@ -40,7 +40,7 @@ exports.answer = function (req, res){
 exports.search = function (req, res){
 	models.Quiz.findAll({where: ["pregunta like ?", '%' + req.query.search + '%']}).then(
 		function (quizes){
-			res.render('quizes/search', { quizes: quizes });
+			res.render('quizes/search', { quizes: quizes, errors: [] });
 		}).catch(function(error){
 		next(error);
 	});
@@ -49,20 +49,23 @@ exports.search = function (req, res){
 exports.new = function (req, res){
 	var quiz = models.Quiz.build({
 		pregunta : "pregunta",
-		respuesta: "respuesta"
+		respuesta: "respuesta",
+		tema: "otro"
 	});
 	res.render('quizes/new', { quiz: quiz, errors: [] });
 };
 
 exports.create = function (req, res){
 	var quiz = models.Quiz.build(req.body.quiz);
+	console.log('Probando quiz.tema');
+	console.log(quiz.tema);
 
 	quiz.validate().then(function (err){
 		if (err){
 			res.render('quizes/new', { quiz: quiz, errors: err.errors});
 		}else{
 			//Guarda en DB los campos pregunta y respuesta de quiz
-			quiz.save({ fields: ["pregunta", "respuesta"]}).then(function (){
+			quiz.save({ fields: ["pregunta", "respuesta", "tema"]}).then(function (){
 			res.redirect('/quizes');
 			}); //redirecciona a la lista de preguntas
 		}
