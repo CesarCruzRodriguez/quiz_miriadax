@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var partials = require('express-partials');  //modulo para usar layouts
 var methodOverride = require('method-override');
+var session = require('express-session');
 
 var routes = require('./routes/index');
 //var users = require('./routes/users');  no se va a utilizar users
@@ -23,9 +24,23 @@ app.use(partials());  //midelware de partials
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
-app.use(cookieParser());
+app.use(cookieParser('Quiz 2015'));  // parametro para añadir una codificación
+app.use(session());
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
+
+//Helper dinamico
+app.use(function (req, res, next){
+
+    //Guardar el path session en session.redir para despues del login
+    if (!req.path.match(/\/login|\/logout/)){
+        req.session.redir = req.path;
+    }
+
+    //Hacer visible req.session en las vistas
+    res.locals.session = req.session;
+    next();
+});
 
 app.use('/', routes);
 //app.use('/users', users);  no se va a utilizar users
