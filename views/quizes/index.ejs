@@ -12,18 +12,25 @@
 			contador_H++; %>
 		<tr>
 			<td><a href="/quizes/<%= quizes[i].id %>"> <%= quizes[i].pregunta %></a></td>
+
+			<% if (session.user){ %>
+
 			<td><a href="/quizes/<%= quizes[i].id %>/edit"><button>Editar</button> </a></td>
 			<td>
 				<form method="post" action="/quizes/<%= quizes[i].id %>?_method=delete">
 					<input type="submit" onClick="return confirm('Borrar: <%= quizes[i].pregunta %>');" value="Borrar">
 				</form>
 			</td>
+
+			<% } %> 
+		</tr>
 	<% } 
 	 }
 	 if (contador_H == 0){ %>
-			<td>no hay preguntas</td>	
+	 	<tr>
+			<td>no hay preguntas</td>
+		</tr>	
 	<%	} %>
-		</tr>
 	
 </table>
 
@@ -36,18 +43,25 @@
 			contador_O++; %>
 		<tr>
 			<td><a href="/quizes/<%= quizes[i].id %>"> <%= quizes[i].pregunta %></a></td>
+
+			<% if (session.user){ %>
+
 			<td><a href="/quizes/<%= quizes[i].id %>/edit"><button>Editar</button> </a></td>
 			<td>
 				<form method="post" action="/quizes/<%= quizes[i].id %>?_method=delete">
 					<input type="submit" onClick="return confirm('Borrar: <%= quizes[i].pregunta %>');" value="Borrar">
 				</form>
 			</td>
+			<% } %> 
+		</tr>
 	<% } 	
 	} 
 	if (contador_O == 0){ %>
+		<tr>
 			<td>no hay preguntas</td>
-	<%	} %>
 		</tr>
+	<%	} %>
+		
 
 </table>
 
@@ -60,18 +74,25 @@
 			contador_C++; %>
 		<tr>
 			<td><a href="/quizes/<%= quizes[i].id %>"> <%= quizes[i].pregunta %></a></td>
+
+			<% if (session.user){ %>
+
 			<td><a href="/quizes/<%= quizes[i].id %>/edit"><button>Editar</button> </a></td>
 			<td>
 				<form method="post" action="/quizes/<%= quizes[i].id %>?_method=delete">
 					<input type="submit" onClick="return confirm('Borrar: <%= quizes[i].pregunta %>');" value="Borrar">
 				</form>
 			</td>
+			<% } %> 
+		</tr>
 	<% } 	
 	} 
 	if (contador_C == 0){ %>
+		<tr>
 			<td>no hay preguntas</td>
-	<%	} %>
 		</tr>
+	<%	} %>
+		
 </table>
 
 <table>
@@ -83,18 +104,25 @@
 			contador_T++; %>
 		<tr>
 			<td><a href="/quizes/<%= quizes[i].id %>"> <%= quizes[i].pregunta %></a></td>
+
+			<% if (session.user){ %>
+
 			<td><a href="/quizes/<%= quizes[i].id %>/edit"><button>Editar</button> </a></td>
 			<td>
 				<form method="post" action="/quizes/<%= quizes[i].id %>?_method=delete">
 					<input type="submit" onClick="return confirm('Borrar: <%= quizes[i].pregunta %>');" value="Borrar">
 				</form>
 			</td>
+			<% } %> 
+		</tr>
 	<% } 	
 	} 
 	if (contador_T == 0){ %>
+		<tr>
 			<td>no hay preguntas</td>
-	<%	} %>
 		</tr>
+	<%	} %>
+		
 </table>
 
 <form method="GET" action="/quizes/search">
@@ -102,4 +130,6 @@
 		<input type="submit" value="Buscar" />
 </form>
 
+<% if (session.user){ %>
 <a href="/quizes/new"><button type="button">Crear pregunta</button></a>
+<% } %>
